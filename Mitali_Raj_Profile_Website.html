@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mitali Raj — Biology Practical (Profile)</title>
+  <style>
+    :root{--bg:#f6f8fb;--card:#ffffff;--accent:#0f62fe;--muted:#6b7280}
+    body{font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:linear-gradient(180deg,var(--bg),#eef3ff);margin:0;padding:32px;display:flex;align-items:center;justify-content:center;min-height:100vh}
+    .card{width:900px;max-width:96%;background:var(--card);border-radius:14px;box-shadow:0 10px 30px rgba(16,24,40,0.08);padding:28px;display:grid;grid-template-columns:360px 1fr;gap:22px}
+    .qr-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;border-radius:10px;border:1px dashed #e6eefc;background:linear-gradient(180deg,#fff,#fbfdff)}
+    h1{margin:0;font-size:20px}
+    .meta{margin-top:8px;color:var(--muted);font-size:13px}
+    .details{display:flex;flex-direction:column;gap:10px;padding:8px 6px}
+    .row{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:8px}
+    .key{color:#374151;font-weight:600}
+    .val{color:#111827}
+    .muted{color:var(--muted);font-size:13px}
+    .actions{display:flex;gap:10px;margin-top:12px}
+    button{background:var(--accent);color:#fff;padding:10px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:600}
+    button.secondary{background:#eef2ff;color:var(--accent);border:1px solid rgba(15,98,254,0.12)}
+    .small{font-size:13px;padding:8px 10px}
+    footer{grid-column:1/-1;margin-top:12px;color:var(--muted);font-size:13px;text-align:center}
+    .notice{background:#fff7ed;padding:10px;border-radius:8px;color:#92400e;border:1px solid rgba(245,158,11,0.12);font-size:13px}
+    @media(max-width:720px){.card{grid-template-columns:1fr}} 
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="qr-wrap">
+      <h1>Mitali Raj — Biology Practical</h1>
+      <div class="meta">DMB Govt. Hr. Sec. School, Sadri (Pali) — Session 2024–25</div>
+      <div id="qr" style="margin:18px"></div>
+      <div class="actions">
+        <button id="downloadBtn" class="small">QR डाउनलोड करो</button>
+        <button id="copyBtn" class="small secondary">सब विवरण कॉपी करो</button>
+      </div>
+      <div style="margin-top:10px" class="muted">QR को किसी भी स्मार्टफोन से स्कैन करें — पूरी जानकारी दिखेगी।</div>
+    </div>
+
+    <div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <h2 style="margin:0 0 6px 0">Student Profile</h2>
+          <div class="muted">Official record snapshot for quick verification</div>
+        </div>
+      </div>
+
+      <div class="details" style="margin-top:14px">
+        <div class="row"><div class="key">Name</div><div class="val">Mitali Raj</div></div>
+        <div class="row"><div class="key">Father's Name</div><div class="val">Krishan Kumar</div></div>
+        <div class="row"><div class="key">Mother's Name</div><div class="val">Chanchal</div></div>
+        <div class="row"><div class="key">Class</div><div class="val">XII C</div></div>
+        <div class="row"><div class="key">Roll No.</div><div class="val">2683681</div></div>
+        <div class="row"><div class="key">Teacher's Name</div><div class="val">Sh. Mohan Lal Ji</div></div>
+        <div class="row"><div class="key">Subject</div><div class="val">Biology Practical</div></div>
+        <div class="row"><div class="key">Session</div><div class="val">2024–25</div></div>
+      </div>
+
+      <div style="margin-top:14px" class="notice">
+        सुरक्षा नोट: यह पेज निजी जानकारी दिखाता है — इसे सार्वजनिक रूप से साझा करने से पहले अनुमति लें।
+      </div>
+
+      <footer>Hosting options: Save this file and open in browser, or host on GitHub Pages / Netlify for free.</footer>
+    </div>
+  </div>
+
+  <script>
+    const qrData = `Name: Mitali Raj\nFather's Name: Krishan Kumar\nMother's Name: Chanchal\nClass: XII C\nRoll No.: 2683681\nTeacher's Name: Sh. Mohan Lal Ji\nSchool: DMB Govt. Hr. Sec. School, Sadri (Pali)\nSession: 2024-25\nSubject: Biology Practical\nVerified Record`;
+    const qrSize = 300;
+    const qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=' + qrSize + 'x' + qrSize + '&data=' + encodeURIComponent(qrData);
+    const img = document.createElement('img');
+    img.src = qrUrl;
+    img.alt = 'QR Code';
+    img.width = qrSize;
+    img.height = qrSize;
+    img.style.borderRadius = '8px';
+    document.getElementById('qr').appendChild(img);
+
+    document.getElementById('downloadBtn').addEventListener('click', async ()=>{
+      try{
+        const resp = await fetch(qrUrl);
+        const blob = await resp.blob();
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'MitaliRaj_Biology_QR.png';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      }catch(e){alert('डाउनलोड में समस्या आ गयी — इंटरनेट कनेक्शन चेक करो');}
+    });
+
+    document.getElementById('copyBtn').addEventListener('click', async ()=>{
+      try{
+        await navigator.clipboard.writeText(qrData.replace(/\\n/g, '\n'));
+        const orig = document.getElementById('copyBtn').textContent;
+        document.getElementById('copyBtn').textContent = 'Copied ✓';
+        setTimeout(()=> document.getElementById('copyBtn').textContent = orig,1500);
+      }catch(e){alert('क्लिपबोर्ड एक्सेस नहीं मिला — ब्राउज़र परमिशन देखो');}
+    });
+  </script>
+</body>
+</html>
